@@ -2,7 +2,7 @@ import json
 from config import getUserConfig, getServerConfig, getSystemConfig
 from flask import Flask, render_template, request, redirect
 from zerodha import loginZerodha, getKite
-from algo import startAlgo
+from algo import startAlgo, testTicker
 import logging
 import threading
 import time
@@ -21,6 +21,8 @@ def home():
     return render_template('index_loggedin.html')
   elif 'algoStarted' in request.args and request.args['algoStarted'] == 'true':
     return render_template('index_algostarted.html')
+  # elif 'algoPlotted' in request.args and request.args['algoPlotted'] == 'true':
+  #   return render_template('index_algotickerplot.html')
   else:
     return render_template('index.html')
   
@@ -34,6 +36,16 @@ def start_algo():
   x.start()
   systemConfig = getSystemConfig()
   homeUrl = systemConfig['homeUrl'] + '?algoStarted=true'
+  logging.info('Sending redirect url %s in response', homeUrl)
+  respData = { 'redirect': homeUrl }
+  return json.dumps(respData)
+
+@app.route('/apis/algo/plot', methods=['POST'])
+def algo_plot():
+  y = threading.Thread(target=testTicker)
+  y.start()
+  systemConfig = getSystemConfig()
+  homeUrl = systemConfig['homeUrl'] + '?algoPlotted=true'
   logging.info('Sending redirect url %s in response', homeUrl)
   respData = { 'redirect': homeUrl }
   return json.dumps(respData)

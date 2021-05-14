@@ -42,11 +42,25 @@
 <body>
   <h1 style="color: blue" class="center">Welcome to algo trading in python</h1>
   <div class="center">
-    <!--button class="button" onClick="startAlgo()">
-      Start Algo
-    </button-->
+    <!-- <button class="button" onClick="testTicker()">
+      Plot Ticks
+    </button> -->
     <h4>Algo is running...</h4>
   </div>
+  <!-- <div class='center'>
+    <script>
+      function testTicker() {
+        var url =  "http://localhost:8080" + "/apis/algo/start"
+        var data = {};
+        $.post(url, {},  
+          function(data, status, xhr) {
+            alert('status: ' + status + ', data: ' + JSON.stringify(data));
+          },
+          'json'
+        );
+      }
+    </script>
+  </div> -->
 </body>
 
 </html>
