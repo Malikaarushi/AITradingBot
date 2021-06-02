@@ -1,4 +1,4 @@
-# sdoosa-algo-trade-python
+# algo-trade-python
 
 This project is mainly for newbies into algo trading who are interested in learning to code their own trading algo using python interpreter.
 
